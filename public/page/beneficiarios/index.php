@@ -31,7 +31,7 @@
   // Al cargar la página, trae y renderiza los beneficiarios
   document.addEventListener("DOMContentLoaded", async () => {
     const params = new URLSearchParams({ operation: 'getAll' });
-    const res = await fetch(`http://localhost/pago-web/app/controllers/beneficiario.controller.php?${params}`);
+    const res = await fetch(`http://localhost/pagoweb/app/controllers/beneficiario.controller.php?${params}`);
     const htmlRows = await res.text();
     document.querySelector('#tabla-beneficiarios tbody').innerHTML = htmlRows;
   });
