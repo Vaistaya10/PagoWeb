@@ -1,20 +1,32 @@
 <?php
 
 //Clase->Metodo 
+require_once "../models/Pago.php";
 require_once "../helpers/helper.php";
 
 if (isset($_GET['operation'])) {
   switch ($_GET['operation']) {
     case 'crearCronograma':
-      $fechaRecibida = $_GET['fechaRecibida'];
-      $fechaInicio = new DateTime($fechaRecibida);
+      $idcontrato = intval($_GET['idcontrato']);
+      $contratoModel = new Contrato();
+    $contrato = $contratoModel->getById($idcontrato);
 
-      $monto        = floatval($_GET['monto']);
-      $tasa         = floatval($_GET['tasa']) / 100; // 
-      $numeroCuotas = floatval($_GET['numeroCuotas']);
+    if (!$contrato) {
+        die("Contrato no encontrado.");
+    }
+       // 3) Extraer variables
+    $monto        = floatval($contrato['monto']);
+    // tu tasa está guardada como porcentaje en DB, p.ej. 12.5 => 12.5%
+    $tasa         = floatval($contrato['interes']) / 100;
+    $numeroCuotas = intval($contrato['numcuotas']);
+    // usamos la fecha de inicio del contrato
+    $fechaInicio  = new DateTime($contrato['fechainicio']);
 
-      // $tasaMensual = pow((1 + $tasa), (1 / 12)) - 1;
-      $cuota = round(Pago($tasa, $numeroCuotas, $monto), 2);
+    // 4) (Opcional) si quieres registrar pagos: instancia PagoModel
+    $pagoModel = new Pago();
+
+    // 5) Cálculo del cronograma (igual que tenías)
+    $cuota = round(Pago($tasa, $numeroCuotas, $monto), 2);
 
       echo "
       <tr>

@@ -28,6 +28,24 @@ class Pago extends Conexion {
     return $result;
   }
 
+  public function getContratoById($idcontrato): array {
+
+        $result = [];
+
+        try {
+            $sql = "CALL spGetContratoById(?)";
+          $cmd = $this->pdo->prepare($sql);
+      $cmd->execute(
+        array($idcontrato)
+      );
+      $result = $cmd->fetchAll(PDO::FETCH_ASSOC);
+    } catch (Exception $e) {
+      die($e->getMessage());
+    }
+
+    return $result;
+  }
+
     /**
      * Llama a sp_registrar_pago(...) y retorna el idpago generado (OUT param).
      */
