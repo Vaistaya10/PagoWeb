@@ -27,7 +27,7 @@ if (isset($_GET['operation'])) {
                       <td>{$contrato}   </td>
                       <td>{$inicio} </td>
                       <td>
-                        <a href='../contratos/registrar-contrato.php?id={$b['idbeneficiario']}' class='btn btn-primary btn-sm'>+ Contrato</a>
+                        <a href='../contratos/registrar-contrato.php?idbeneficiario={$b['idbeneficiario']}' class='btn btn-primary btn-sm'>+ Contrato</a>
                         <a href='../pagos/index.php?idcontrato={$contrato}' class='btn btn-warning btn-sm'>Cronograma</a>
                       </td>
                     </tr>";

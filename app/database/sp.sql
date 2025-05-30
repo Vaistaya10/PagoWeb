@@ -101,7 +101,7 @@ BEGIN
   INSERT INTO contratos
     (idbeneficiario, monto, interes, fechainicio, diapago, numcuotas, estado, creado)
   VALUES
-    (p_idbeneficiario, p_monto, p_interes, p_fechainicio, p_diapago, p_numcuotas, 'ACT', NOW());
+    (_idbeneficiario, _monto, _interes, _fechainicio, _diapago, _numcuotas, 'ACT', NOW());
 END$$
 
 -- call spGetPagosByContrato(1)

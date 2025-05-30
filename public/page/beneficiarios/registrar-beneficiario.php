@@ -90,11 +90,13 @@ require_once "../../partials/header.php";
         if (!response.ok) {
           throw new Error("Error en la respuesta del servidor");
         }
-        const afectadas = parseInt(await response.text(), 10);
+        const afectadas = parseInt(text, 10);
+        
 
         // Verificar la respuesta y mostrar un mensaje al usuario
         if (afectadas > 0) {
-          showToast("Beneficiario registrado correctamente", "SUCCESS", 1500, "./lista-beneficiarios");
+          alert('Beneficiario registrado exitosamente');
+          window.location.href = `http://localhost/PagoWeb/public/page/beneficiarios/`;
           form.reset();
         } else {
           showToast("Ocurrió un error al registrar el beneficiario", "ERROR");

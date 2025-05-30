@@ -24,7 +24,7 @@ diapago 		tinyint 		not null,
 numcuotas 		tinyint 		not null comment 'expresado en meses',
 estado 			enum('ACT','FIN') not null default 'ACT' comment 'ACT = Activo, FIN = Finalizo',
 creado 			datetime 	not null default now(),
-modificado 		datetime    not null,
+modificado 		datetime    null,
 constraint fk_idbeneficiario_con foreign key (idbeneficiario) references beneficiarios (idbeneficiario)
 )engine = innodb;
 
@@ -52,8 +52,7 @@ insert into beneficiarios(apellidos,nombres,dni,telefono) values
 insert into contratos (idbeneficiario,monto, interes,fechainicio,diapago,numcuotas) values
 (1,3000,5,'2025-03-10',15,12);
 
-insert into contratos (idbeneficiario,monto, interes,fechainicio,diapago,numcuotas) values
-(7,5000,7,'2025-03-10',11,10);
+
 -- select * from beneficiarios
 insert into contratos (idbeneficiario,monto,interes,fechainicio,diapago,numcuotas) values
 (2,3000,5,'2025-03-10',15,12);

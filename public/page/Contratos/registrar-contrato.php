@@ -19,19 +19,16 @@ require_once "../../partials/header.php";
         </div>
 
         <div class="col-md-4 mb-3">
-          <div class="form-floating ">
-            <div class="input-group" style="scale: 1.1;padding-bottom:10px;">
-              <input type="number" class="form-control" id="interes" name="interes" min="0.01" max="100.00" 
-               minlength="1" maxlength="5"
-              pattern="[0-9A-Za-z]+" step="0.01" placeholder="interes" required>
-               <label for="interes" class="input-group-text" id="basic-addon2">%</label>
-            </div>
-          </div>
-        </div>
+  <div class="form-floating" style="padding-bottom:10px;">
+    <input type="number" class="form-control" id="interes" name="interes" min="0.01" max="100.00" step="0.01" placeholder="Interés (%)" required >
+    <label for="interes"><strong>Interés (%)</strong></label>
+  </div>
+</div>
+
 
          <div class="col-md-4">
             <div class="form-floating">
-              <input type="date" class="form-control input" name="fechainicio" id="fechainicio" value="<?= date('Y-m-d') ?>" required disabled>
+              <input type="date" class="form-control input" name="fechainicio" id="fechainicio" value="<?= date('Y-m-d') ?>" required >
               <label for="fechainicio"><strong>Fecha Inicio</strong></label>
             </div>
           </div>
@@ -63,3 +60,48 @@ require_once "../../partials/header.php";
 
   </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('formContrato');
+  
+  const urlParams     = new URLSearchParams(window.location.search);
+  const idbeneficiario = urlParams.get('idbeneficiario');
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+
+    
+    if (!idbeneficiario) {
+      alert('Falta id de beneficiario en la URL');
+      return;
+    }
+
+    const formData = new FormData(form);
+    formData.append('idbeneficiario', idbeneficiario);
+
+    try {
+      const response = await fetch(
+        '../../../app/controllers/contrato.controller.php?operation=add',
+        { method: 'POST', body: formData }
+      );
+      if (!response.ok) throw new Error('Error en la petición');
+
+      
+      const text     = await response.text();
+      const affected = parseInt(text, 10);
+
+      if (affected > 0) {
+        alert('Contrato registrado exitosamente');
+        
+        window.location.href = `http://localhost/PagoWeb/public/page/beneficiarios/`;
+      } else {
+        alert('No se pudo crear el contrato.');
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Ocurrió un error al registrar el contrato');
+    }
+  });
+});
+</script>
