@@ -69,7 +69,8 @@ BEGIN
   FROM contratos
   WHERE idcontrato = p_idcontrato;
 END$$
-
+-- select * from beneficiarios
+-- call spCreateBeneficiario('ejemplo','ejemplo','88888888','999999999','su casa')
 DELIMITER $$
 
 CREATE PROCEDURE spCreateBeneficiario(
@@ -138,3 +139,5 @@ BEGIN
     VALUES
       (_idcontrato, _numcuota, _fechapago, _monto, _penalidad, _medio);
 END$$
+
+-- select * from beneficiarios

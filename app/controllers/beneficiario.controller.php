@@ -14,8 +14,8 @@ if (isset($_GET['operation'])) {
                 $rows = Beneficiario::getAll();
                 foreach ($rows as $b) {
                     // contrato_reciente y fechainicio pueden ser null
-                    $contrato = $b['contrato_reciente'] ?? '';
-                    $inicio    = $b['fechainicio']       ?? '';
+                    $contrato = $b['contrato_reciente'] ?? 'Sin contrato';
+                    $inicio    = $b['fechainicio']       ?? 'No iniciado';
                     echo "
                     <tr>
                       <td>{$b['idbeneficiario']}</td>
@@ -24,8 +24,12 @@ if (isset($_GET['operation'])) {
                       <td>{$b['dni']}</td>
                       <td>{$b['telefono']}</td>
                       <td>{$b['direccion']}</td>
-                      <td>{$contrato}</td>
-                      <td>{$inicio}</td>
+                      <td>{$contrato}   </td>
+                      <td>{$inicio} </td>
+                      <td>
+                        <a href='../contratos/registrar-contrato.php?id={$b['idbeneficiario']}' class='btn btn-primary btn-sm'>+ Contrato</a>
+                        <a href='../pagos/index.php?idcontrato={$contrato}' class='btn btn-warning btn-sm'>Cronograma</a>
+                      </td>
                     </tr>";
                 }
             } catch (Exception $e) {
@@ -39,13 +43,14 @@ if (isset($_GET['operation'])) {
         // 2) Crear un nuevo beneficiario
         // --------------------------------
         case 'add':
+            error_log("POST en add: " . json_encode($_POST));
             // Recibimos los datos por GET (podrías usar POST si prefieres)
             $params = [
-                'apellidos' => $_GET['apellidos']  ?? '',
-                'nombres'   => $_GET['nombres']    ?? '',
-                'dni'       => $_GET['dni']        ?? '',
-                'telefono'  => $_GET['telefono']   ?? '',
-                'direccion' => $_GET['direccion']  ?? ''
+                'apellidos' => $_POST['apellidos']  ?? '',
+                'nombres'   => $_POST['nombres']    ?? '',
+                'dni'       => $_POST['dni']        ?? '',
+                'telefono'  => $_POST['telefono']   ?? '',
+                'direccion' => $_POST['direccion']  ?? ''
             ];
 
             // Validación mínima

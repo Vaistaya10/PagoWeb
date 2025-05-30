@@ -2,10 +2,12 @@
 
 require_once "Conexion.php";
 
-class Beneficiario extends Conexion {
+class Beneficiario extends Conexion
+{
     private $pdo;
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->pdo = parent::getConexion();
     }
 
@@ -24,8 +26,9 @@ class Beneficiario extends Conexion {
     }
 
 
-    public function add($params = []): int{
-        $numRows = 0;
+    public function add($params = []): int
+    {
+
         try {
             $query = "CALL spCreateBeneficiario(?,?,?,?,?)";
             $stmt = $this->pdo->prepare($query);
@@ -36,15 +39,16 @@ class Beneficiario extends Conexion {
                 $params['telefono'],
                 $params['direccion']
             ));
-               $numRows = $stmt->rowCount(); 
+            // Obtengo el id recién creado (0 si falló)
+            $newId = (int) $this->pdo->lastInsertId();
+            return $newId;
+        } catch (PDOException $e) {
+            error_log("Error DB: " . $e->getMessage());
+            return 0;
+        }
 
-            } catch (PDOException $e) {
-      error_log("Error DB: " . $e->getMessage());
-      return $numRows;
-    } 
-    return $numRows;
-  }
     }
+}
 
 
 

@@ -8,12 +8,14 @@ if (isset($_GET['operation'])) {
   switch ($_GET['operation']) {
     case 'crearCronograma':
       $idcontrato = intval($_GET['idcontrato']);
-      $contratoModel = new Contrato();
-    $contrato = $contratoModel->getById($idcontrato);
-
-    if (!$contrato) {
+      $pago = new Pago();
+      $result = $pago->getContratoById($idcontrato);
+      if (empty($result)) {
         die("Contrato no encontrado.");
-    }
+      }
+    
+
+$contrato = $result[0];
        // 3) Extraer variables
     $monto        = floatval($contrato['monto']);
     // tu tasa está guardada como porcentaje en DB, p.ej. 12.5 => 12.5%
@@ -23,7 +25,7 @@ if (isset($_GET['operation'])) {
     $fechaInicio  = new DateTime($contrato['fechainicio']);
 
     // 4) (Opcional) si quieres registrar pagos: instancia PagoModel
-    $pagoModel = new Pago();
+    $pago = new Pago();
 
     // 5) Cálculo del cronograma (igual que tenías)
     $cuota = round(Pago($tasa, $numeroCuotas, $monto), 2);

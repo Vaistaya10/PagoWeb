@@ -1,12 +1,16 @@
   <?php
   require_once "../../partials/header.php";
   ?>
-  <h3>Lista de Beneficiarios</h3>
+  <h3>Beneficiarios</h3>
   <hr>
 
   <!-- Vista de Beneficiarios -->
 <div class="container">
-  <h2>Lista de Beneficiarios</h2>
+
+
+  <div class="text-end mb-3">
+    <a href="registrar-beneficiario.php" class="btn btn-success">Registrar</a>
+  </div>
   <table id="tabla-beneficiarios" class="table">
     <thead>
       <tr>

@@ -20,31 +20,34 @@
 
       </tbody>
     </table>
+
+    <div class="text-right">
+  <a href="../beneficiarios/" class="btn btn-sm btn-secondary">Volver</a>
+    </div>
   </div>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", async () => {
-      async function obtenerCronograma(){
-        const params = new URLSearchParams()
-        params.append("operation","crearCronograma")
-        params.append("fechaRecibida","2025-10-10")
-        params.append("monto",3000)
-        params.append("tasa",5)
-        params.append("numeroCuotas",12)
+<script>
+  document.addEventListener("DOMContentLoaded", async () => {
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    const idcontrato = urlParams.get('idcontrato') || '0';  // por defecto 1
 
-      const response = await fetch (`../../../app/controllers/pago.controller.php?${params}`,{method:'GET'})
-      return await response.text()
-      }
+    // 2) Función para pedir el cronograma
+    async function obtenerCronograma(id) {
+      const params = new URLSearchParams({
+        operation: 'crearCronograma',
+        idcontrato
+      });
+      const resp = await fetch(`../../../app/controllers/pago.controller.php?${params}`);
+      return await resp.text();
+    }
 
-      async function renderCronograma(){
-        const tabla = document.querySelector("#tabla-pagos tbody")
-        tabla.innerHTML = await obtenerCronograma();
-      }
+    // 3) Renderizar en la tabla
+    const tbody = document.querySelector("#tabla-pagos tbody");
+    tbody.innerHTML = await obtenerCronograma(idcontrato);
+  });
+</script>
 
-      await renderCronograma()
-      
-    })
-  </script>
 
 </body>
 </html>
