@@ -46,9 +46,6 @@ class Pago extends Conexion {
     return $result;
   }
 
-    /**
-     * Llama a sp_registrar_pago(...) y retorna el idpago generado (OUT param).
-     */
     public function add($params = []): int {
         $numRows = 0;
         try {

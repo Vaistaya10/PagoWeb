@@ -96,10 +96,10 @@ require_once "../../partials/header.php";
         // Verificar la respuesta y mostrar un mensaje al usuario
         if (afectadas > 0) {
           alert('Beneficiario registrado exitosamente');
-          window.location.href = `http://localhost/PagoWeb/public/page/beneficiarios/`;
+          window.location.href = `http://localhost/PagoWeb/public/page/beneficiarios/index.php`;
           form.reset();
         } else {
-          showToast("Ocurrió un error al registrar el beneficiario", "ERROR");
+         // alert('Ocurrio un error al registrar el beneficiario');
         }
       } catch (error) {
         console.error("Error:", error);

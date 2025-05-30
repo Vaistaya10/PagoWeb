@@ -83,7 +83,7 @@ switch ($_GET['operation']) {
         try {
             $contrato    = new Contrato();
             $affected = $contrato->add($params);
-            // devuelve >0 si se creó
+            
             echo $affected;
         } catch (Exception $e) {
             http_response_code(500);

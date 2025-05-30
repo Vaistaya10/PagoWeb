@@ -44,7 +44,7 @@ if (isset($_GET['operation'])) {
         // --------------------------------
         case 'add':
             error_log("POST en add: " . json_encode($_POST));
-            // Recibimos los datos por GET (podrías usar POST si prefieres)
+            
             $params = [
                 'apellidos' => $_POST['apellidos']  ?? '',
                 'nombres'   => $_POST['nombres']    ?? '',
@@ -53,7 +53,7 @@ if (isset($_GET['operation'])) {
                 'direccion' => $_POST['direccion']  ?? ''
             ];
 
-            // Validación mínima
+            
             if (in_array('', $params, true)) {
                 http_response_code(400);
                 echo "Faltan datos para crear beneficiario.";
@@ -63,7 +63,7 @@ if (isset($_GET['operation'])) {
             try {
                 $model   = new Beneficiario();
                 $affected = $model->add($params);
-                // Devuelve 1 si se insertó, 0 si falló (dni duplicado, etc.)
+                
                 echo $affected;
             } catch (Exception $e) {
                 http_response_code(500);
