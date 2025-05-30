@@ -11,7 +11,7 @@
   <div class="text-end mb-3">
     <a href="registrar-beneficiario.php" class="btn btn-success">Registrar</a>
   </div>
-  <table id="tabla-beneficiarios" class="table">
+  <table id="tabla-beneficiarios" class="table table-striped">
     <thead>
       <tr>
         <th>ID</th>

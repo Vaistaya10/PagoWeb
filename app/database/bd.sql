@@ -43,11 +43,10 @@ constraint uk_numcuota_pag unique (idcontrato,numcuota)
 insert into beneficiarios (apellidos, nombres, dni, telefono) values 
 ('Tasayco Yataco', 'Valentino Ismael', '76180741', '956633983');
 
-insert into beneficiarios (apellidos, nombres, dni, telefono) values 
-('dddo', 'Valdddel', '76180742', '926633983');
+
 
 insert into beneficiarios(apellidos,nombres,dni,telefono) values
-('Tasayco Yataco','Yohies Lisbeth','80085333','912468430');
+('Gonzales Martinez','Maria ','80085333','912468430');
 
 insert into contratos (idbeneficiario,monto, interes,fechainicio,diapago,numcuotas) values
 (1,3000,5,'2025-03-10',15,12);
